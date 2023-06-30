@@ -81,7 +81,7 @@ export function setDelivery(id) {
 }
 
 export function findProd(productName) {
-    ProductsPage.getAllProductsOnPage().each((element) => {
+    return ProductsPage.getAllProductsOnPage().each((element) => {
         if (element.text().includes(productName)) {
             cy.wrap(element).find('button').click();
         }

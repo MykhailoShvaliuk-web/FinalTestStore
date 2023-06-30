@@ -17,30 +17,30 @@ describe('Order Product With Helper', () => {
 
     it('Order product', () => {
         cy.log('Adding a product to basket');
-        findProd('Carrot Juice')
+        findProd('Carrot Juice').then(() => {
+            cy.log('Navigation to basket');
+            NavbarPage.getBasketButton().click();
 
-        cy.log('Navigation to basket');
-        NavbarPage.getBasketButton().click();
+            cy.log('Navigation to New Address form');
+            BasketPage.getCheckoutButton().click();
+            AddressListPage.getAddNewItemButton().click();
 
-        cy.log('Navigation to New Address form');
-        BasketPage.getCheckoutButton().click();
-        AddressListPage.getAddNewItemButton().click();
+            cy.log('New Address form filling');
+            setNewAddress(user)
 
-        cy.log('New Address form filling');
-        setNewAddress(user)
+            cy.log('Selecting address');
+            AddressListPage.getFirstAddressFromList().click();
+            AddressListPage.getContinuePage().click();
 
-        cy.log('Selecting address');
-        AddressListPage.getFirstAddressFromList().click();
-        AddressListPage.getContinuePage().click();
+            cy.log('Delivery Address form filling');
+            setDelivery(3);
 
-        cy.log('Delivery Address form filling');
-        setDelivery(3);
+            cy.log('My Payment Options form filling');
+            setNewPayment(user)
 
-        cy.log('My Payment Options form filling');
-        setNewPayment(user)
-
-        cy.log('Order Summary page');
-        OrderPage.getPlaceYourOrderAndPayButton().click();
-        cy.get('mat-card:nth-child(1) > div > h1').should('have.text', 'Thank you for your purchase!');
+            cy.log('Order Summary page');
+            OrderPage.getPlaceYourOrderAndPayButton().click();
+            cy.get('mat-card:nth-child(1) > div > h1').should('have.text', 'Thank you for your purchase!');
+        })
     })
 })

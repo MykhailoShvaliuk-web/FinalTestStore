@@ -1,7 +1,4 @@
-import customerFeedback from '../fixtures/customerFeedback.json'
 import { faker } from '@faker-js/faker'
-
-customerFeedback.comment = faker.number.int();
 
 it('Customer Feedback', () => {
     cy.log('Navigation to Customer Feedback form');
@@ -9,7 +6,7 @@ it('Customer Feedback', () => {
     cy.get('button.mat-focus-indicator.mat-primary.ng-star-inserted').click();
 
     cy.log('Customer Feedback form filling');
-    cy.get('#comment').type(customerFeedback.comment);
+    cy.get('#comment').type(faker.number.int());
 
     cy.get('#rating').invoke("val", 3)
         .trigger("change")
